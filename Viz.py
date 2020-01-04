@@ -10,10 +10,10 @@ def passenger_portrayal(agent):
                  "r": 0.9}
     return portrayal
 
-grid = CanvasGrid(passenger_portrayal, 20, 7, 800, 280)
+grid = CanvasGrid(passenger_portrayal, 21, 7, 840, 310)
 server = ModularServer(PlaneModel,
                        [grid],
-                       "Money Model",
-                       {"N":51, "width":17, "height":7})
+                       "Boarding Simulation",
+                       {random})
 server.port = 8521 # The default
 server.launch()
