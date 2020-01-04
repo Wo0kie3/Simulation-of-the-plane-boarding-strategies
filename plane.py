@@ -1,5 +1,6 @@
 from mesa import Model, Agent
 from mesa.space import MultiGrid
+from queue import QueueActivation
 import numpy as np
 
 
@@ -17,24 +18,20 @@ class PassengerAgent(Agent):
         super().__init__(unique_id, model)
         self.seat_pos = seat_pos
         self.baggage = baggage_normal()
-        self.x = seat_pos[0]
-        self.y = seat_pos[1]
         self.group = group
-        self.my_x = 0
-        self.my_y = 3
+
     def step(self):
-        if self.x != self.seat_pos:
+        if self.pos[0] != self.seat_pos[0] and self.model.grid.is_cell_empty((self.pos[0] + 1, self.pos[1])):
             self.move()
         else:
-            #self.store_luggage()
+            # self.store_luggage()
             pass
 
     def move(self):
-        self.model.grid.move_agent(self, (self.x + 1, self.y))
-        self.x += 1
+        self.model.grid.move_agent(self, (self.pos[0] + 1, self.pos[1]))
 
     def store_luggage(self):
-        #storing luggage and stoping queue
+        # storing luggage and stopping queue
         pass
 
     def __str__(self):
@@ -46,20 +43,21 @@ class PlaneModel(Model):
     def __init__(self, method):
         self.grid = MultiGrid(21, 7, False)
         self.running = True
+        self.plane_queue = QueueActivation(self)
         self.method = method
         self.entry_free = True
-        self.plane_queue = QueueActivation(self)
 
         # Create agents and splitting them into separate boarding groups accordingly to a given method
-        self.boarding_groups = []
+        self.boarding_queue = []
         self.method(self)
 
 
     def step(self):
         self.plane_queue.step()
-        self.entry_free = True
-        if self.entry_free:
-            a = self.boarding_groups.pop()
+        if self.grid.is_cell_empty((0, 3)):
+            self.entry_free = True
+        if self.entry_free and len(self.boarding_queue) > 0:
+            a = self.boarding_queue.pop()
             self.plane_queue.add(a)
             self.grid.place_agent(a, (0, 3))
             self.entry_free = False
