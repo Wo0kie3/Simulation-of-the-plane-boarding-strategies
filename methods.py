@@ -1,4 +1,5 @@
-from plane import PassengerAgent
+import plane
+
 
 def random(model):
     """ Creates one boarding group """
@@ -6,7 +7,7 @@ def random(model):
     group = []
     for x in range(3, 19):
         for y in (0, 1, 2, 4, 5, 6):
-            agent = PassengerAgent(id, model, (x, y), 1)
+            agent = plane.PassengerAgent(id, model, (x, y), 1)
             id += 1
             group.append(agent)
     model.random.shuffle(group)
@@ -19,7 +20,7 @@ def front_to_back_gr(model):
     sub_group = []
     for x in range(19, 15, -1):
         for y in (0, 1, 2, 4, 5, 6):
-            agent = PassengerAgent(id, model, (x, y), 1)
+            agent = plane.PassengerAgent(id, model, (x, y), 4)
             id += 1
             sub_group.append(agent)
     model.random.shuffle(sub_group)
@@ -28,7 +29,7 @@ def front_to_back_gr(model):
     sub_group = []
     for x in range(15, 11, -1):
         for y in (0, 1, 2, 4, 5, 6):
-            agent = PassengerAgent(id, model, (x, y), 2)
+            agent = plane.PassengerAgent(id, model, (x, y), 3)
             id += 1
             sub_group.append(agent)
     model.random.shuffle(sub_group)
@@ -37,7 +38,7 @@ def front_to_back_gr(model):
     sub_group = []
     for x in range(11, 7, -1):
         for y in (0, 1, 2, 4, 5, 6):
-            agent = PassengerAgent(id, model, (x, y), 1)
+            agent = plane.PassengerAgent(id, model, (x, y), 2)
             id += 1
             sub_group.append(agent)
     model.random.shuffle(sub_group)
@@ -46,7 +47,7 @@ def front_to_back_gr(model):
     sub_group = []
     for x in range(7, 3, -1):
         for y in (0, 1, 2, 4, 5, 6):
-            agent = PassengerAgent(id, model, (x, y), 1)
+            agent = plane.PassengerAgent(id, model, (x, y), 1)
             id += 1
             sub_group.append(agent)
     model.random.shuffle(sub_group)
@@ -61,7 +62,7 @@ def back_to_front_gr(model):
     sub_group = []
     for x in range(6, 2, -1):
         for y in (0, 1, 2, 4, 5, 6):
-            agent = PassengerAgent(id, model, (x, y), 1)
+            agent = plane.PassengerAgent(id, model, (x, y), 4)
             id += 1
             sub_group.append(agent)
     model.random.shuffle(sub_group)
@@ -70,7 +71,7 @@ def back_to_front_gr(model):
     sub_group = []
     for x in range(10, 6, -1):
         for y in (0, 1, 2, 4, 5, 6):
-            agent = PassengerAgent(id, model, (x, y), 1)
+            agent = plane.PassengerAgent(id, model, (x, y), 3)
             id += 1
             sub_group.append(agent)
     model.random.shuffle(sub_group)
@@ -79,7 +80,7 @@ def back_to_front_gr(model):
     sub_group = []
     for x in range(14, 10, -1):
         for y in (0, 1, 2, 4, 5, 6):
-            agent = PassengerAgent(id, model, (x, y), 2)
+            agent = plane.PassengerAgent(id, model, (x, y), 2)
             id += 1
             sub_group.append(agent)
     model.random.shuffle(sub_group)
@@ -88,7 +89,7 @@ def back_to_front_gr(model):
     sub_group = []
     for x in range(18, 14, -1):
         for y in (0, 1, 2, 4, 5, 6):
-            agent = PassengerAgent(id, model, (x, y), 1)
+            agent = plane.PassengerAgent(id, model, (x, y), 1)
             id += 1
             sub_group.append(agent)
     model.random.shuffle(sub_group)
@@ -101,15 +102,17 @@ def back_to_front_gr(model):
 def front_to_back(model):
 
     final_group = []
+    group_id = 16
     id = 1
     for x in range(18,2,-1):
         sub_group = []
         for y in (0, 1, 2, 4, 5, 6):
-            agent = PassengerAgent(id, model, (x, y), 1)
+            agent = plane.PassengerAgent(id, model, (x, y), group_id)
             id += 1
             sub_group.append(agent)
         model.random.shuffle(sub_group)
         final_group.extend(sub_group)
+        group_id -= 1
 
     model.boarding_queue.extend(final_group)
 
@@ -117,15 +120,17 @@ def front_to_back(model):
 def back_to_front(model):
 
     final_group = []
+    group_id = 16
     id = 1
     for x in range(3, 19):
         sub_group = []
         for y in (0, 1, 2, 4, 5, 6):
-            agent = PassengerAgent(id, model, (x, y), 1)
+            agent = plane.PassengerAgent(id, model, (x, y), group_id)
             id += 1
             sub_group.append(agent)
         model.random.shuffle(sub_group)
         final_group.extend(sub_group)
+        group_id -= 1
 
     model.boarding_queue.extend(final_group)
 
@@ -137,7 +142,7 @@ def win_mid_ais(model):
     sub_group = []
     for y in (2, 4):
         for x in range(3,19):
-            agent = PassengerAgent(id, model, (x, y), 3)
+            agent = plane.PassengerAgent(id, model, (x, y), 3)
             id += 1
             sub_group.append(agent)
     model.random.shuffle(sub_group)
@@ -146,7 +151,7 @@ def win_mid_ais(model):
     sub_group = []
     for y in (1, 5):
         for x in range(3, 19):
-            agent = PassengerAgent(id, model, (x, y), 2)
+            agent = plane.PassengerAgent(id, model, (x, y), 2)
             id += 1
             sub_group.append(agent)
     model.random.shuffle(sub_group)
@@ -155,7 +160,7 @@ def win_mid_ais(model):
     sub_group = []
     for y in (0, 6):
         for x in range(3,19):
-            agent = PassengerAgent(id, model, (x, y), 1)
+            agent = plane.PassengerAgent(id, model, (x, y), 1)
             id += 1
             sub_group.append(agent)
     model.random.shuffle(sub_group)
@@ -170,32 +175,32 @@ def steffen_perfect(model):
     id = 1
     for y in (2, 4):
         for x in range(3, 19, 2):
-            agent = PassengerAgent(id, model, (x, y), 6)
+            agent = plane.PassengerAgent(id, model, (x, y), 6)
             id += 1
             final_group.append(agent)
     for y in (2, 4):
         for x in range(4, 19, 2):
-            agent = PassengerAgent(id, model, (x, y), 5)
+            agent = plane.PassengerAgent(id, model, (x, y), 5)
             id += 1
             final_group.append(agent)
     for y in (1, 5):
         for x in range(3, 19, 2):
-            agent = PassengerAgent(id, model, (x, y), 4)
+            agent = plane.PassengerAgent(id, model, (x, y), 4)
             id += 1
             final_group.append(agent)
     for y in (1, 5):
         for x in range(4, 19, 2):
-            agent = PassengerAgent(id, model, (x, y), 3)
+            agent = plane.PassengerAgent(id, model, (x, y), 3)
             id += 1
             final_group.append(agent)
     for y in (0, 6):
         for x in range(3, 19, 2):
-            agent = PassengerAgent(id, model, (x, y), 2)
+            agent = plane.PassengerAgent(id, model, (x, y), 2)
             id += 1
             final_group.append(agent)
     for y in (0, 6):
         for x in range(4, 19, 2):
-            agent = PassengerAgent(id, model, (x, y), 1)
+            agent = plane.PassengerAgent(id, model, (x, y), 1)
             id += 1
             final_group.append(agent)
 
@@ -203,27 +208,36 @@ def steffen_perfect(model):
 
 
 def steffen_modified(model):
-    final_group = []
+    group = []
     id = 1
     for x in range(3, 19, 2):
         for y in (2, 1, 0):
-            agent = PassengerAgent(id, model, (x, y), 4)
+            agent = plane.PassengerAgent(id, model, (x, y), 4)
             id += 1
-            final_group.append(agent)
+            group.append(agent)
+    model.random.shuffle(group)
+    model.boarding_queue.extend(group)
+    group = []
     for x in range(3, 19, 2):
         for y in (4, 5, 6):
-            agent = PassengerAgent(id, model, (x, y), 3)
+            agent = plane.PassengerAgent(id, model, (x, y), 3)
             id += 1
-            final_group.append(agent)
+            group.append(agent)
+    model.random.shuffle(group)
+    model.boarding_queue.extend(group)
+    group = []
     for x in range(4, 19, 2):
         for y in (2, 1, 0):
-            agent = PassengerAgent(id, model, (x, y), 2)
+            agent = plane.PassengerAgent(id, model, (x, y), 2)
             id += 1
-            final_group.append(agent)
+            group.append(agent)
+    model.random.shuffle(group)
+    model.boarding_queue.extend(group)
+    group = []
     for x in range(4, 19, 2):
         for y in (4, 5, 6):
-            agent = PassengerAgent(id, model, (x, y), 1)
+            agent = plane.PassengerAgent(id, model, (x, y), 1)
             id += 1
-            final_group.append(agent)
-
-    model.boarding_queue.extend(final_group)
+            group.append(agent)
+    model.random.shuffle(group)
+    model.boarding_queue.extend(group)
