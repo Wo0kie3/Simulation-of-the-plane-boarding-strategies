@@ -19,16 +19,31 @@ class PassengerAgent(Agent):
         self.seat_pos = seat_pos
         self.baggage = baggage_normal()
         self.group = group
+        self.state = 'INACTIVE'
 
     def step(self):
-        if self.pos[0] != self.seat_pos[0] and self.model.grid.is_cell_empty((self.pos[0] + 1, self.pos[1])):
-            self.move()
-        else:
-            # self.store_luggage()
-            pass
+        if self.state == 'GOING' and self.model.grid.is_cell_empty((self.pos[0] + 1, self.pos[1])):
+            self.move(1, 0)
+            if self.pos[0] == self.seat_pos[0]:
+                self.state = 'BAGGAGE'
 
-    def move(self):
-        self.model.grid.move_agent(self, (self.pos[0] + 1, self.pos[1]))
+        elif self.state == 'BAGGAGE':
+            if self.baggage > 0:
+                self.baggage -= 1
+            else:
+                self.state = 'SEATING'
+
+        elif self.state == 'SEATING':
+            if self.seat_pos[1] in (0, 1, 2):
+                self.move(0, -1)
+            else:
+                self.move(0, 1)
+            if self.pos[1] == self.seat_pos[1]:
+                self.state = 'FINISHED'
+                self.model.plane_queue.remove(self)
+
+    def move(self, m_x, m_y):
+        self.model.grid.move_agent(self, (self.pos[0] + m_x, self.pos[1] + m_y))
 
     def store_luggage(self):
         # storing luggage and stopping queue
@@ -54,10 +69,16 @@ class PlaneModel(Model):
 
     def step(self):
         self.plane_queue.step()
+
         if self.grid.is_cell_empty((0, 3)):
             self.entry_free = True
+
         if self.entry_free and len(self.boarding_queue) > 0:
             a = self.boarding_queue.pop()
+            a.state = 'GOING'
             self.plane_queue.add(a)
             self.grid.place_agent(a, (0, 3))
             self.entry_free = False
+
+        if self.plane_queue.get_agent_count() == 0:
+            self.running = False
