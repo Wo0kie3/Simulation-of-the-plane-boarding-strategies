@@ -98,21 +98,132 @@ def back_to_front_gr(model):
     model.boarding_queue.extend(final_group)
 
 
-def back_to_front(model):
-    pass
+def front_to_back(model):
+
+    final_group = []
+    id = 1
+    for x in range(18,2,-1):
+        sub_group = []
+        for y in (0, 1, 2, 4, 5, 6):
+            agent = PassengerAgent(id, model, (x, y), 1)
+            id += 1
+            sub_group.append(agent)
+        model.random.shuffle(sub_group)
+        final_group.extend(sub_group)
+
+    model.boarding_queue.extend(final_group)
 
 
 def back_to_front(model):
-    pass
+
+    final_group = []
+    id = 1
+    for x in range(3, 19):
+        sub_group = []
+        for y in (0, 1, 2, 4, 5, 6):
+            agent = PassengerAgent(id, model, (x, y), 1)
+            id += 1
+            sub_group.append(agent)
+        model.random.shuffle(sub_group)
+        final_group.extend(sub_group)
+
+    model.boarding_queue.extend(final_group)
 
 
 def win_mid_ais(model):
-    pass
+
+    final_group = []
+    id = 1
+    sub_group = []
+    for y in (2, 4):
+        for x in range(3,19):
+            agent = PassengerAgent(id, model, (x, y), 3)
+            id += 1
+            sub_group.append(agent)
+    model.random.shuffle(sub_group)
+    final_group.extend(sub_group)
+
+    sub_group = []
+    for y in (1, 5):
+        for x in range(3, 19):
+            agent = PassengerAgent(id, model, (x, y), 2)
+            id += 1
+            sub_group.append(agent)
+    model.random.shuffle(sub_group)
+    final_group.extend(sub_group)
+
+    sub_group = []
+    for y in (0, 6):
+        for x in range(3,19):
+            agent = PassengerAgent(id, model, (x, y), 1)
+            id += 1
+            sub_group.append(agent)
+    model.random.shuffle(sub_group)
+    final_group.extend(sub_group)
+
+    model.boarding_queue.extend(final_group)
 
 
 def steffen_perfect(model):
-    pass
+
+    final_group = []
+    id = 1
+    for y in (2, 4):
+        for x in range(3, 19, 2):
+            agent = PassengerAgent(id, model, (x, y), 6)
+            id += 1
+            final_group.append(agent)
+    for y in (2, 4):
+        for x in range(4, 19, 2):
+            agent = PassengerAgent(id, model, (x, y), 5)
+            id += 1
+            final_group.append(agent)
+    for y in (1, 5):
+        for x in range(3, 19, 2):
+            agent = PassengerAgent(id, model, (x, y), 4)
+            id += 1
+            final_group.append(agent)
+    for y in (1, 5):
+        for x in range(4, 19, 2):
+            agent = PassengerAgent(id, model, (x, y), 3)
+            id += 1
+            final_group.append(agent)
+    for y in (0, 6):
+        for x in range(3, 19, 2):
+            agent = PassengerAgent(id, model, (x, y), 2)
+            id += 1
+            final_group.append(agent)
+    for y in (0, 6):
+        for x in range(4, 19, 2):
+            agent = PassengerAgent(id, model, (x, y), 1)
+            id += 1
+            final_group.append(agent)
+
+    model.boarding_queue.extend(final_group)
 
 
 def steffen_modified(model):
-    pass
+    final_group = []
+    id = 1
+    for x in range(3, 19, 2):
+        for y in (2, 1, 0):
+            agent = PassengerAgent(id, model, (x, y), 4)
+            id += 1
+            final_group.append(agent)
+    for x in range(3, 19, 2):
+        for y in (4, 5, 6):
+            agent = PassengerAgent(id, model, (x, y), 3)
+            id += 1
+            final_group.append(agent)
+    for x in range(4, 19, 2):
+        for y in (2, 1, 0):
+            agent = PassengerAgent(id, model, (x, y), 2)
+            id += 1
+            final_group.append(agent)
+    for x in range(4, 19, 2):
+        for y in (4, 5, 6):
+            agent = PassengerAgent(id, model, (x, y), 1)
+            id += 1
+            final_group.append(agent)
+
+    model.boarding_queue.extend(final_group)
