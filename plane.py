@@ -1,6 +1,6 @@
 from mesa import Model, Agent
 from mesa.space import MultiGrid
-from queue import QueueActivation
+import queue
 import methods
 import numpy as np
 
@@ -71,7 +71,7 @@ class PlaneModel(Model):
     def __init__(self, method):
         self.grid = MultiGrid(21, 7, False)
         self.running = True
-        self.plane_queue = QueueActivation(self)
+        self.plane_queue = queue.QueueActivation(self)
         self.method = self.method_types[method]
         self.entry_free = True
 
