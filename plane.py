@@ -7,9 +7,9 @@ import numpy as np
 
 def baggage_normal():
     """ Generates a positive integer number from normal distribution """
-    value = int(3 + np.random.normal())
+    value = int(4 + np.random.normal() * 4/3)
     while value < 0:
-        value = int(3 + np.random.normal())
+        value = int(4 + np.random.normal())
     return value
 
 
@@ -41,7 +41,7 @@ class PassengerAgent(Agent):
                 self.move(0, 1)
             if self.pos[1] == self.seat_pos[1]:
                 self.state = 'FINISHED'
-                self.model.plane_queue.remove(self)
+                self.model.schedule.remove(self)
 
     def move(self, m_x, m_y):
         self.model.grid.move_agent(self, (self.pos[0] + m_x, self.pos[1] + m_y))
@@ -71,7 +71,7 @@ class PlaneModel(Model):
     def __init__(self, method):
         self.grid = MultiGrid(21, 7, False)
         self.running = True
-        self.plane_queue = queue.QueueActivation(self)
+        self.schedule = queue.QueueActivation(self)
         self.method = self.method_types[method]
         self.entry_free = True
 
@@ -80,7 +80,7 @@ class PlaneModel(Model):
         self.method(self)
 
     def step(self):
-        self.plane_queue.step()
+        self.schedule.step()
 
         if self.grid.is_cell_empty((0, 3)):
             self.entry_free = True
@@ -88,9 +88,9 @@ class PlaneModel(Model):
         if self.entry_free and len(self.boarding_queue) > 0:
             a = self.boarding_queue.pop()
             a.state = 'GOING'
-            self.plane_queue.add(a)
+            self.schedule.add(a)
             self.grid.place_agent(a, (0, 3))
             self.entry_free = False
 
-        if self.plane_queue.get_agent_count() == 0:
+        if self.schedule.get_agent_count() == 0:
             self.running = False
