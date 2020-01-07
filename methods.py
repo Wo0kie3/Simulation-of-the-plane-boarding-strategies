@@ -18,7 +18,7 @@ def front_to_back_gr(model):
     final_group = []
     id = 1
     sub_group = []
-    for x in range(19, 15, -1):
+    for x in range(18, 14, -1):
         for y in (0, 1, 2, 4, 5, 6):
             agent = plane.PassengerAgent(id, model, (x, y), 4)
             id += 1
@@ -27,7 +27,7 @@ def front_to_back_gr(model):
     for a in sub_group:
         final_group.append(a)
     sub_group = []
-    for x in range(15, 11, -1):
+    for x in range(14, 10, -1):
         for y in (0, 1, 2, 4, 5, 6):
             agent = plane.PassengerAgent(id, model, (x, y), 3)
             id += 1
@@ -36,7 +36,7 @@ def front_to_back_gr(model):
     for a in sub_group:
         final_group.append(a)
     sub_group = []
-    for x in range(11, 7, -1):
+    for x in range(10, 6, -1):
         for y in (0, 1, 2, 4, 5, 6):
             agent = plane.PassengerAgent(id, model, (x, y), 2)
             id += 1
@@ -45,7 +45,7 @@ def front_to_back_gr(model):
     for a in sub_group:
         final_group.append(a)
     sub_group = []
-    for x in range(7, 3, -1):
+    for x in range(6, 2, -1):
         for y in (0, 1, 2, 4, 5, 6):
             agent = plane.PassengerAgent(id, model, (x, y), 1)
             id += 1
