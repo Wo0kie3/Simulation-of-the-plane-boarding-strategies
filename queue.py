@@ -22,13 +22,26 @@ class QueueActivation(BaseScheduler):
     def get_agent_count(self):
         return len(self._agents) + len(self._priority_agents)
 
-    def agent_buffer(self):
-        priority_keys = list(self._priority_agents.keys())
-        for key in priority_keys:
-            if key in self._priority_agents:
-                yield self._priority_agents[key]
+    def agent_buffer(self, shuffled=False):
+        for a in self.model.shuffle_cords:
+            for agent in self.agent_buffer():
+                if agent.seat_pos[0] == a[0] and agent.seat_pos[1] == a[1]:
+                    agent.state = "SZUFLA"
+                    self.add_priority(agent)
 
-        agent_keys = list(self._agents.keys())
-        for key in agent_keys:
-            if key in self._agents:
-                yield self._agents[key]
+        for agent in self.agent_buffer():
+            if agent.state == "BACK":
+                self.add_priority(agent)
+                
+        self.model.shuffle_cords = []
+
+        priority_keys = list(self._priority_agents.keys())
+        if len(priority_keys) > 0:
+            for key in priority_keys:
+                if key in self._priority_agents:
+                    yield self._priority_agents[key]
+        else:
+            agent_keys = list(self._agents.keys())
+            for key in agent_keys:
+                if key in self._agents:
+                    yield self._agents[key]
