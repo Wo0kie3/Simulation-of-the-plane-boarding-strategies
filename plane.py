@@ -25,14 +25,70 @@ class PassengerAgent(Agent):
     def step(self):
         if self.state == 'GOING' and self.model.grid.is_cell_empty((self.pos[0] + 1, self.pos[1])):
             self.move(1, 0)
-            if self.pos[0] == self.seat_pos[0]:
-                self.state = 'BAGGAGE'
 
-        elif self.state == 'BAGGAGE':
-            if self.baggage > 0:
-                self.baggage -= 1
-            else:
-                self.state = 'SEATING'
+        elif self.pos[0] + 1 == self.seat_pos[0]:
+            self.state = "WAIT"
+            for k in (0, 1):
+                if self.seat_pos[1] == k:
+                    if self.model.grid.is_cell_empty(self.seat_pos[0], k):
+                        self.model.shuffle_cords.append(self.seat_pos[0], k)
+            for k in (4, 5):
+                if self.seat_pos[1] == k:
+                    if self.model.grid.is_cell_empty(self.seat_pos[0], k):
+                        self.model.shuffle_cords.append(self.seat_pos[0], k)
+
+        elif self.state == "WAIT":
+            if self.seat_pos[1] == 0:
+                if self.model.grid.is_cell_empty((self.pos[0] + 1, self.pos[1] - 1)) and self.model.grid.is_cell_empty((self.pos[0] + 1, self.pos[1] - 2)):
+                    self.state = "GOING"
+            if self.seat_pos[1] == 1:
+                if self.model.grid.is_cell_empty((self.pos[0] + 1, self.pos[1] - 1)):
+                    self.state = "GOING"
+            if self.seat_pos[1] == 6:
+                if self.model.grid.is_cell_empty((self.pos[0] + 1, self.pos[1] + 1)) and self.model.grid.is_cell_empty((self.pos[0] + 1, self.pos[1] + 2)):
+                    self.state = "GOING"
+            if self.seat_pos[1] == 5:
+                if self.model.grid.is_cell_empty((self.pos[0] + 1, self.pos[1] ++ 1)):
+                    self.state = "GOING"
+
+        elif self.state == "SZUFLA":
+            if self.seat_pos[1] in (1, 2):
+                if self.seat_pos[0] != 3:
+                    self.move(0, -1)
+            elif self.seat_pos[1] in (4, 5):
+                if self.seat_pos[0] != 3:
+                    self.move(0, 1)
+            elif self.seat_pos[0] == 3:
+                if self.seat_pos[1] in (1, 5):
+                    self.move(0, 2)
+                    self.state = "BACK"
+                else:
+                    self.move(0, 1)
+                    self.state = "BACK"
+
+        elif self.state == "BACK" and self.model.grid.is_cell_empty((self.pos[0] + 1, self.pos[1])):
+            self.move(-1, 0)
+
+        elif self.state == "BACK" and self.seat_pos[1] in (1, 2):
+            if self.model.grid.is_cell_empty((self.pos[0], self.pos[1] - 1)):
+                self.move(0, -1)
+
+        elif self.state == "BACK" and self.seat_pos[1] in (4, 5):
+            if self.model.grid.is_cell_empty((self.pos[0], self.pos[1] + 1)):
+                self.move(0, -1)
+
+        elif self.state == "BACK" and self.seat_pos[1] == self.pos[1] and self.seat_pos[0] == self.pos[0]:
+            self.state = 'FINISHED'
+            for cord in self.model.shuffle_cords:
+                if self.pos[0] == cord[0] and self.pos[1] == cord[1]:
+                    self.model.shuffle_cords.remove(cord)
+
+        elif self.pos[0] == self.seat_pos[0]:
+                self.state = 'BAGGAGE'
+                if self.baggage > 0:
+                    self.baggage -= 1
+                else:
+                    self.state = 'SEATING'
 
         elif self.state == 'SEATING':
             if self.seat_pos[1] in (0, 1, 2):
@@ -41,14 +97,11 @@ class PassengerAgent(Agent):
                 self.move(0, 1)
             if self.pos[1] == self.seat_pos[1]:
                 self.state = 'FINISHED'
-                self.model.schedule.remove(self)
+                #self.model.schedule.remove(self)
+
 
     def move(self, m_x, m_y):
         self.model.grid.move_agent(self, (self.pos[0] + m_x, self.pos[1] + m_y))
-
-    def store_luggage(self):
-        # storing luggage and stopping queue
-        pass
 
     def __str__(self):
         return "ID {}\t: {}".format(self.unique_id, self.seat_pos)
@@ -75,6 +128,7 @@ class PlaneModel(Model):
         self.method = self.method_types[method]
         self.entry_free = True
 
+        self.shuffle_cords = []
         # Create agents and splitting them into separate boarding groups accordingly to a given method
         self.boarding_queue = []
         self.method(self)
