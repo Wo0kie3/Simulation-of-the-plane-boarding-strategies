@@ -1,14 +1,15 @@
 from mesa import Model, Agent
 from mesa.space import MultiGrid
-from queue import QueueActivation
+import queue
+import methods
 import numpy as np
 
 
 def baggage_normal():
     """ Generates a positive integer number from normal distribution """
-    value = int(3 + np.random.normal())
+    value = int(4 + np.random.normal() * 4/3)
     while value < 0:
-        value = int(3 + np.random.normal())
+        value = int(4 + np.random.normal())
     return value
 
 
@@ -40,7 +41,7 @@ class PassengerAgent(Agent):
                 self.move(0, 1)
             if self.pos[1] == self.seat_pos[1]:
                 self.state = 'FINISHED'
-                self.model.plane_queue.remove(self)
+                self.model.schedule.remove(self)
 
     def move(self, m_x, m_y):
         self.model.grid.move_agent(self, (self.pos[0] + m_x, self.pos[1] + m_y))
@@ -55,20 +56,31 @@ class PassengerAgent(Agent):
 
 class PlaneModel(Model):
     """ A model representing simple plane consisting of 16 rows of 6 seats (2 x 3) using a given boarding method """
+
+    method_types = {
+        'Random': methods.random,
+        'Front-to-back': methods.front_to_back,
+        'Front-to-back (4 groups)': methods.front_to_back_gr,
+        'Back-to-front': methods.back_to_front,
+        'Back-to-front (4 groups)': methods.back_to_front_gr,
+        'Window-Middle-Aisle': methods.win_mid_ais,
+        'Steffen Perfect': methods.steffen_perfect,
+        'Steffen Modified': methods.steffen_modified
+    }
+
     def __init__(self, method):
         self.grid = MultiGrid(21, 7, False)
         self.running = True
-        self.plane_queue = QueueActivation(self)
-        self.method = method
+        self.schedule = queue.QueueActivation(self)
+        self.method = self.method_types[method]
         self.entry_free = True
 
         # Create agents and splitting them into separate boarding groups accordingly to a given method
         self.boarding_queue = []
         self.method(self)
 
-
     def step(self):
-        self.plane_queue.step()
+        self.schedule.step()
 
         if self.grid.is_cell_empty((0, 3)):
             self.entry_free = True
@@ -76,9 +88,9 @@ class PlaneModel(Model):
         if self.entry_free and len(self.boarding_queue) > 0:
             a = self.boarding_queue.pop()
             a.state = 'GOING'
-            self.plane_queue.add(a)
+            self.schedule.add(a)
             self.grid.place_agent(a, (0, 3))
             self.entry_free = False
 
-        if self.plane_queue.get_agent_count() == 0:
+        if self.schedule.get_agent_count() == 0:
             self.running = False
