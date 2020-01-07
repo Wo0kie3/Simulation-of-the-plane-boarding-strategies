@@ -48,7 +48,7 @@ class PassengerAgent(Agent):
                 if self.model.grid.is_cell_empty((self.pos[0] + 1, self.pos[1] + 1)) and self.model.grid.is_cell_empty((self.pos[0] + 1, self.pos[1] + 2)):
                     self.state = "GOING"
             if self.seat_pos[1] == 5:
-                if self.model.grid.is_cell_empty((self.pos[0] + 1, self.pos[1] ++ 1)):
+                if self.model.grid.is_cell_empty((self.pos[0] + 1, self.pos[1] + 1)):
                     self.state = "GOING"
 
         elif self.state == "SZUFLA":
