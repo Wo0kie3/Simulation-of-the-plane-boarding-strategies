@@ -19,6 +19,14 @@ class QueueActivation(BaseScheduler):
     def remove_priority(self, agent):
         del self._priority_agents[agent.unique_id]
 
+    def safe_remove_priority(self, agent):
+        if agent.unique_id in self._priority_agents.keys():
+            del self._priority_agents[agent.unique_id]
+
+    def safe_remove(self, agent):
+        if agent.unique_id in self._agents.keys():
+            del self._agents[agent.unique_id]
+
     def get_agent_count(self):
         return len(self._agents) + len(self._priority_agents)
 
