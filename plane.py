@@ -7,9 +7,9 @@ import numpy as np
 
 def baggage_normal():
     """ Generates a positive integer number from normal distribution """
-    value = int(7 + np.random.normal() * 3)
+    value = round(np.random.normal(7, 2), 0)
     while value < 0:
-        value = int(7 + np.random.normal() * 3)
+        value = round(np.random.normal(7, 2), 0)
     return value
 
 
@@ -30,7 +30,6 @@ class PassengerAgent(Agent):
             self.baggage = baggage_normal()
         else:
             self.baggage = self.model.common_bags
-
 
     def step(self):
         if self.state == 'GOING' and self.model.get_patch((self.pos[0] + 1, self.pos[1])).state == 'FREE' and self.model.get_patch((self.pos[0] + 1, self.pos[1])).shuffle == 0:

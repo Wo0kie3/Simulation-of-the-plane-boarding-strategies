@@ -26,7 +26,6 @@ def agent_portrayal(agent):
 
         portrayal['text'] = agent.unique_id
         portrayal['text_color'] = 'white'
-        portrayal['state'] = agent.state
 
     elif isinstance(agent, PatchAgent):
         portrayal = {"Shape": "rect",
@@ -40,11 +39,6 @@ def agent_portrayal(agent):
             portrayal['Color'] = 'lightgreen'
         elif agent.type == 'SEAT':
             portrayal['Color'] = '#ff6666'
-
-        portrayal['shuffle'] = agent.shuffle
-        portrayal['back'] = agent.back
-        portrayal['allow_shuffle'] = agent.allow_shuffle
-        portrayal['state'] = agent.state
 
     return portrayal
 

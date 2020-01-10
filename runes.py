@@ -85,7 +85,7 @@ for j in range(len(new_params1)):
     if j == 0:
         label_name = "SHUFFLE ONLY" + " " + "avg. time:" + " " + str(average_time)
     else:
-        label_name = "BAG SIZE:" +" "+ str(j) +" "+ "avg. time:" + " "+str(average_time)
+        label_name = "BAG SIZE:" +" "+ str(j) + " " + "avg. time:" + " "+str(average_time)
     sns.distplot(a, color=colors[j], ax=axes[j], label="Density", axlabel=label_name, hist=False)
 
 
@@ -107,6 +107,6 @@ for j in range(len(new_params2)):
     if j == 0:
         label_name = "SHUFFLE ONLY" + " " + "avg. time:" + " " + str(average_time)
     else:
-        label_name = "BAG SIZE:" +" "+ str(j) +" "+ "avg. time:" + " "+str(average_time)
+        label_name = "BAG SIZE:" + " " + str(j) + " " + "avg. time:" + " " + str(average_time)
     sns.distplot(a, color=colors[j], ax=axes[j],label="Density", axlabel=label_name, hist=False)
 plt.show()
