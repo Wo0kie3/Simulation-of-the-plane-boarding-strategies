@@ -74,5 +74,6 @@ On first chart are results when luggage stowing does not count, only seat shuffl
 Then on the others we simply increase size of the bags also excluding seat shuffling.
  - **RANDOM**
 ![](Test1.png)
- - **BACK TO FRONT (4 groups)
+ - **BACK TO FRONT (4 groups)**
 ![](Test2.png)
+As we can see when the bag size is around 3, luggage stowing have almost same impact as seat shuffling.
