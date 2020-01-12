@@ -58,20 +58,24 @@ plt.show()
 
 plt.clf()
 plt.close()
-new_params1 = [{"method": method_types[4], "shuffle_enable": True, 'common_bags': 0},
-               {"method": method_types[4], "shuffle_enable": False, 'common_bags': 1},
-               {"method": method_types[4], "shuffle_enable": False, 'common_bags': 2},
-               {"method": method_types[4], "shuffle_enable": False, 'common_bags': 3},
-               {"method": method_types[4], "shuffle_enable": False, 'common_bags': 4}]
-new_params2 = [{"method": method_types[0], "shuffle_enable": True, 'common_bags': 0},
+
+new_params1 = [{"method": method_types[0], "shuffle_enable": True, 'common_bags': 0},
                {"method": method_types[0], "shuffle_enable": False, 'common_bags': 1},
                {"method": method_types[0], "shuffle_enable": False, 'common_bags': 2},
                {"method": method_types[0], "shuffle_enable": False, 'common_bags': 3},
                {"method": method_types[0], "shuffle_enable": False, 'common_bags': 4}]
 
+new_params2 = [{"method": method_types[4], "shuffle_enable": True, 'common_bags': 0},
+               {"method": method_types[4], "shuffle_enable": False, 'common_bags': 1},
+               {"method": method_types[4], "shuffle_enable": False, 'common_bags': 2},
+               {"method": method_types[4], "shuffle_enable": False, 'common_bags': 3},
+               {"method": method_types[4], "shuffle_enable": False, 'common_bags': 4}]
+
 bins = np.linspace(100, 500, 100)
 
 fig, axes = plt.subplots(1, 5,figsize=(15,3), dpi=100, sharey=True)
+
+### RANDOM
 for j in range(len(new_params1)):
     batch_run = BatchRunner(PlaneModel, None, new_params1[j], iterations=50,
                             model_reporters={"method_time": lambda m: m.schedule.time}, display_progress=False,
@@ -94,8 +98,9 @@ plt.clf()
 plt.close()
 
 fig, axes = plt.subplots(1, 5,figsize=(15,3), dpi=100, sharey=True)
+### BACK TO FRONT (4 GROUPS)
 for j in range(len(new_params2)):
-    batch_run = BatchRunner(PlaneModel, None, new_params1[j], iterations=50,
+    batch_run = BatchRunner(PlaneModel, None, new_params2[j], iterations=50,
                             model_reporters={"method_time": lambda m: m.schedule.time}, display_progress=False,
                             max_steps=1500)
     batch_run.run_all()
