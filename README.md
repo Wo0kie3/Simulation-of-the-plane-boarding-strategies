@@ -27,14 +27,14 @@ After this in your browser should show up new tab(like image below)
 ![](webpage.png)
 
 On the left side panel are tree variables:
--Boarding method (chose method which you want to run)
--Enable shuffle (seat shuffle is enable or not)
--Luggage size (from 0 to 7 or normal distribution)
+ -Boarding method (chose method which you want to run)
+ -Enable shuffle (seat shuffle is enable or not)
+ -Luggage size (from 0 to 7 or normal distribution)
 
 On the right side are tree buttons:
--Start/Stop (simply turn on or off vizualization)
--Step (does one vizualization step)
--Reset (clear board)
+ -Start/Stop (simply turn on or off vizualization)
+ -Step (does one vizualization step)
+ -Reset (clear board)
 
 ## runes.py
 ![](MainPlot.png)
