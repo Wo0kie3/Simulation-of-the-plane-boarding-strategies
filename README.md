@@ -37,6 +37,6 @@ On the right side are tree buttons:
 -Reset (clear board)
 
 ## runes.py
-![](MAinPlot.png)
+![](MainPlot.png)
 ![](Test1.png)
 ![](Test2.png)
