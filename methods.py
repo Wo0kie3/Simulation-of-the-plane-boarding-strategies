@@ -214,6 +214,7 @@ def steffen_modified(model):
             agent = plane.PassengerAgent(id, model, (x, y), 4)
             id += 1
             group.append(agent)
+    # model.random.shuffle(group)
     model.boarding_queue.extend(group)
     group = []
     for x in range(3, 19, 2):
@@ -221,6 +222,7 @@ def steffen_modified(model):
             agent = plane.PassengerAgent(id, model, (x, y), 3)
             id += 1
             group.append(agent)
+    # model.random.shuffle(group)
     model.boarding_queue.extend(group)
     group = []
     for x in range(4, 19, 2):
@@ -228,6 +230,7 @@ def steffen_modified(model):
             agent = plane.PassengerAgent(id, model, (x, y), 2)
             id += 1
             group.append(agent)
+    # model.random.shuffle(group)
     model.boarding_queue.extend(group)
     group = []
     for x in range(4, 19, 2):
@@ -235,4 +238,5 @@ def steffen_modified(model):
             agent = plane.PassengerAgent(id, model, (x, y), 1)
             id += 1
             group.append(agent)
+    # model.random.shuffle(group)
     model.boarding_queue.extend(group)
