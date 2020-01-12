@@ -78,5 +78,5 @@ Then on the others we simply increase size of the bags also excluding seat shuff
 ![](Test2.png)
 
 
-As we can see, when the bag size is around 3, luggage stowing have almost same impact as only seat shuffling.
+As we can see, when the bag size is around 3, luggage stowing have almost same impact as seat shuffling without bag stowing.
 
