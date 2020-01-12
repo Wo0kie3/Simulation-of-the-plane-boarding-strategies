@@ -65,7 +65,7 @@ and **Y axis** is density (https://en.wikipedia.org/wiki/Kernel_density_estimati
 
 ### Results
 For each method we provided 100 diffrent runs.
-Below we can see our main combined chart with results of 8 methods 
+Below we can see combined chart with results of 8 methods 
 
 ![](MainPlot.png)
 
