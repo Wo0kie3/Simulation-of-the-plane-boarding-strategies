@@ -63,7 +63,7 @@ File "*methods.py*" consists of 8 functions representing boarding methods which 
 
 ### viz.py
 File "*viz.py*" consists of elements required for correct visualization of our model. To launch it, ensure that all that 
-all files mentioned in this document are located in the same document and execute:
+all files mentioned in this document are located in the same dictionary and execute:
 
 >python3  -m  viz.py
 
