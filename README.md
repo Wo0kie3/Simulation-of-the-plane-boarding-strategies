@@ -24,5 +24,5 @@ This is vizualization file. Simply if u want to see how it works, put all files 
 >python3  -m  viz.py
 
 After this in your browser should show up new tab.
-![](MainPlot.png)
+![](webpage.png)
 ## runes.py
