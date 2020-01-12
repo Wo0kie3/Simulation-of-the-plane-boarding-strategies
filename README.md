@@ -58,10 +58,21 @@ On the right side, there are three buttons controlling the flow of simulation:
 
 
 ## runes.py
-File *runes.py* contains batch runs whose are collecting data as time (to fully board all passengers).
+File *runes.py* contains batch runs whose are collecting data as time (to fully board all passengers),
+and script where we can exam the impact of seat shuffling on the length of the boarding process.
+Our results are presented on histograms, where **X axis** is time line 
+and **Y axis** is density (https://en.wikipedia.org/wiki/Kernel_density_estimation)
 
 ### Results
-For each method we provided 100 diffrent runs
+For each method we provided 100 diffrent runs.
+Below we can see our main combined chart with results of 8 methods 
+
 ![](MainPlot.png)
+
+Here we can see how size of bags can impact boarding time over seat shuffling.
+On first chart are results when luggage stowing does not count, only seat shuffling.
+Then on the others we simply increase size of the bags also excluding seat shuffling.
+ - **RANDOM**
 ![](Test1.png)
+ - **BACK TO FRONT (4 groups)
 ![](Test2.png)
