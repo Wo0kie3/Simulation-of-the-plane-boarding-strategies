@@ -40,7 +40,6 @@ File "*methods.py*" consists of 8 functions representing boarding methods which 
 This is visualization file. Simply if u want to see how it works, put all files in one directory and use this command:
 >python3  -m  viz.py
 
-<<<<<<< HEAD
 After this in your browser should show up new tab (resembling an image below):
 
 ![](webpage.png)
@@ -54,7 +53,7 @@ On the right side, there are three buttons controlling the flow of simulation:
  - **Start/Stop** (turns on and pauses the visualization)
  - **Step** (progresses the simulation by one step)
  - **Reset** (clears the board)
-=======
+ 
 After this in your browser should show up new tab(like image below)
 ![](webpage.png)
 
@@ -69,7 +68,6 @@ On the right side are tree buttons:
  - Start/Stop (simply turn on or off vizualization)
  - Step (does one vizualization step)
  - Reset (clear board)
->>>>>>> ac945cbbfa464513f1da61f8fe0f045d0757d633
 
 ## runes.py
 ![](MainPlot.png)
