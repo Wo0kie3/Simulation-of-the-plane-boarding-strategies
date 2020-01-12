@@ -8,7 +8,7 @@ The visualization can be launched with:
 
 >python3  -m  viz.py
 
-(more details [here](#viz-py))
+(more details [here](#vizpy))
 
 To work properly, it requires following libraries installed:
  - **mesa** 
