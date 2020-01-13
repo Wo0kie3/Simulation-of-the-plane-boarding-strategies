@@ -38,7 +38,7 @@ File "*plane.py*" consists of our implementation of 2 types of agents (inheritin
 
 ### queue_method.py
 
-File "*queue.py*" contains a definition of ***QueueScheduler*** - an extension of *BaseScheduler* delivered by *Mesa*.
+File "*queue_method.py*" contains a definition of ***QueueScheduler*** - an extension of *BaseScheduler* delivered by *Mesa*.
 Instead of a single agent buffer, the modified version consists of two separate queue - *standard* and *priority*.
 Agents placed in priority queue are guaranteed to progress before those in standard one.
 Such implementation allows for better control over the flow of simulation, while still being compatible
