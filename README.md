@@ -4,11 +4,7 @@ The aim of this project it to examine and compare various methods of boarding a 
 Our implementation is based on ***Mesa*** - an agent-based modeling framework for **Python 3** (more information can be found
 on https://mesa.readthedocs.io/).
 
-The visualization can be launched with:
-
->python3  -m  viz.py
-
-(more details [here](#vizpy))
+The visualization can be launched by running file "viz.py" (more details [here](#vizpy)).
 
 To work properly, it requires following libraries installed:
  - **mesa** 
@@ -40,7 +36,7 @@ File "*plane.py*" consists of our implementation of 2 types of agents (inheritin
  and scheduler (**QueueScheduler** which is explained below).
 
 
-### queue.py
+### queue_method.py
 
 File "*queue.py*" contains a definition of ***QueueScheduler*** - an extension of *BaseScheduler* delivered by *Mesa*.
 Instead of a single agent buffer, the modified version consists of two separate queue - *standard* and *priority*.
