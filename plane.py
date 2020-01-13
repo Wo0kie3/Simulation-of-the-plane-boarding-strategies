@@ -1,6 +1,6 @@
 from mesa import Model, Agent
 from mesa.space import MultiGrid
-import queue
+import queue_method
 import methods
 import numpy as np
 
@@ -162,7 +162,7 @@ class PlaneModel(Model):
     def __init__(self, method, shuffle_enable=True, common_bags='normal'):
         self.grid = MultiGrid(21, 7, False)
         self.running = True
-        self.schedule = queue.QueueActivation(self)
+        self.schedule = queue_method.QueueActivation(self)
         self.method = self.method_types[method]
         self.entry_free = True
         self.shuffle_enable = shuffle_enable
