@@ -11,7 +11,7 @@ To work properly, it requires following libraries installed:
  - **numpy**
  - **pandas**
  - **seaborn**
- - **mathplotlib**
+ - **matplotlib**
 
 
 ## Implementation - files:
